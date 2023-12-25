@@ -12,8 +12,8 @@ class MoveToCoordinates:
         self.target_index = 0
         self.move_to_next_target = True
 
-        self.pose_subscriber = rospy.Subscriber('/odom', Odometry, self.pose_callback)
-        self.cmd_vel_publisher = rospy.Publisher('/cmd_vel_mux/input/teleop', Twist, queue_size=10)
+        self.pose_subscriber = rospy.Subscriber('/odom', Odometry, self.pose_callback)#replace with whatever topic gives u robots current path
+        self.cmd_vel_publisher = rospy.Publisher('/cmd_vel_mux/input/teleop', Twist, queue_size=10)#replace with whatever topic manipulates robots velocities
 
     def pose_callback(self, odom):
         rospy.loginfo(self.current_pose)
@@ -79,7 +79,7 @@ if __name__ == '__main__':
         rospy.init_node('move_to_coordinates_node')
         
         # Define a list of Point coordinates
-        target_coordinates = [Point(x=3.5, y=1.5)]
+        target_coordinates = [Point(x=3.5, y=1.5)]#u can add whatever points u want the robot to visit in this
 
         move_to_coordinates = MoveToCoordinates(target_coordinates)
         rospy.loginfo('Moving to the first target: {}'.format(target_coordinates[0]))
